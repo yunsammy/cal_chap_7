@@ -1,77 +1,23 @@
-class Control:
-    def __init__(self, view):
-        self.view = view
-        self.connectSignals()
-        
-    def calculate(self):
-        try:
-            num1 = float(self.view.le1.text())
-            num2 = float(self.view.le2.text())
-            operator =self.view.cb.currentText()
-        
-            if operator == '+':
-                return f'{num1} + {num2} = {self.sum(num1, num2)}'
-            elif operator == '-':
-                return f'{num1} - {num2} = {self.sub(num1, num2)}'
-            elif operator == '*':
-                return f'{num1} * {num2} = {self.mul(num1, num2)}'
-            elif operator == '/':
-                return f'{num1} / {num2} = {self.div(num1, num2)}'
-            elif operator == '^':
-                return f'{num1} ^ {num2} = {self.pow(num1, num2)}'
-            elif operator == '%':
-                return f'{num1} % {num2} = {self.mod(num1, num2)}'
-            else :
-                return "Calculation Error"
-        
-        except:
-            return "Calculation Error"
-        
-    def connectSignals(self):
-        self.view.btn1.clicked.connect(lambda: self.view.setDisplay(self.calculate()))
-        self.view.btn2.clicked.connect(self.view.clearMessage)
-        
-    def sum(self, a, b):
-        return a+b
-        
-    def sub(self, a, b):
-        return a-b
+from PyQt5.QtWidgets import (QApplication,QWidget,QPushButton,QVBoxLayout,
+                             QMessageBox, QPlainTextEdit, QHBoxLayout,
+                             QLineEdit, QComboBox)
+from PyQt5.QtGui import QIcon
+from PyQt5 import QtCore
+
+
+class View(QWidget):
     
-    def mul(self, a, b):
-        return a*b
-    
-    def div(self, a, b):
-        try:
-            if(b==0):
-                raise Exception("Divisor Error")
-            
-        except Exception as e:
-            return e
+    def __init__(self):
+        super().__init__()
+        self.initUI()
         
-        return a/b
-    
-    def pow(self, a, b):
-        try:
-           if (a==0):
-                raise Exception("Base Error")
-            
-        except Exception as e:
-            return e
+    def initUI(self):
+        self.te1 = QPlainTextEdit()
+        self.te1.setReadOnly(True)
         
-        return pow(a, b)   
-    
-    def mod(self, a, b):
-        try:
-            if(b==0):
-                raise Exception("Divisor Error")
-            
-        except Exception as e:
-            return e
+        self.btn1=QPushButton('Calc',self)
+        self.btn2=QPushButton('Clear',self)
         
-<<<<<<< HEAD
-        return a%b
-    
-=======
         self.le1=QLineEdit('0',self)
         self.le1.setAlignment(QtCore.Qt.AlignRight)
         self.le1.setFocus(True)
@@ -81,7 +27,7 @@ class Control:
         self.le2.setAlignment(QtCore.Qt.AlignRight)
         
         self.cb = QComboBox(self)
-        self.cb.addItems(['+', '-', '*', '/', '^', '%'])
+        self.cb.addItems(['+', '-', '*', '/'])
         
         hbox_formular = QHBoxLayout()
         hbox_formular.addWidget(self.le1)
@@ -111,4 +57,3 @@ class Control:
         
     def clearMessage(self):
         self.te1.clear()
->>>>>>> 8f2761c (Modify ui.py to add % operator in Qcombobox)
