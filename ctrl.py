@@ -19,4 +19,7 @@ class Control:
         self.view.btn2.clicked.connect(self.view.clearMessage)
         
     def sum(self, a, b):
-            return a+b
+	return a+b
+
+    def sub(self, a, b):
+	return a-b
